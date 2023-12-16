@@ -38,7 +38,7 @@ async def register_user(file: UploadFile = File(...), name: str = Form(...), ema
     db.refresh(image)
 
 
-@app.get("/registered_details/{user_id}", response_class=JSONResponse)
+@app.get("/registered_details/{id}", response_class=JSONResponse)
 def get_details(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.user_id == user_id).first()
 
@@ -46,7 +46,7 @@ def get_details(user_id: int, db: Session = Depends(get_db)):
         return f'Name:{user.name}, Email:{user.email}, Phone_number:{user.phone}'
 
 
-@app.get("/get_image/{user_id}", response_class=JSONResponse)
+@app.get("/get_image/{id}", response_class=JSONResponse)
 def get_image(user_id: int, db: Session = Depends(get_db)):
     image = db.query(Image).filter(Image.user_id == user_id).first()
 
